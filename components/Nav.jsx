@@ -27,17 +27,17 @@ const Nav = () => {
       {/* Desktop Navigation */}
       <div className="hidden sm:flex">
         {session?.user ? (
-          <div className="flex gap-3 md:gap-5">
-            <Link href="/shop" className="black_btn">
+          <div className="flex-center gap-3 md:gap-9">
+            <Link href="/shop" className="logo_text">
               Shop
             </Link>
-            <Link href="/order" className="black_btn">
+            <Link href="/order" className="logo_text">
               Order
             </Link>
-            <Link href="/profile" className="black_btn">
+            <Link href="/profile" className="logo_text">
               Profile
             </Link>
-            <Link href="/coupons" className="black_btn">
+            <Link href="/coupons" className="logo_text">
               Coupons
             </Link>
 
