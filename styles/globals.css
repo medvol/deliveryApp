@@ -109,7 +109,7 @@
 }
 
 .glassmorphism {
-  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
+  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-2 pb-5;
 }
 
 .prompt_layout {
@@ -140,12 +140,17 @@
 }
 
 .dropdown_link {
-  @apply text-sm font-inter text-gray-700 hover:bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text hover:text-transparent;
+  @apply text-lg font-inter text-gray-700 hover:bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text hover:text-transparent;
+}
+
+.shop_link {
+ @apply text-sm font-inter text-gray-700 hover:text-gray-500 font-medium
 }
 
 
-.prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+
+.food_card {
+  @apply flex-1 flex-row break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-2 pb-5 backdrop-blur-lg backdrop-filter  w-full h-fit;
 }
 
 .flex-center {
