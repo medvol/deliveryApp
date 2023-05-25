@@ -2,15 +2,17 @@ import Shop from "@models/shop";
 import { connectToDB } from "@utils/database";
 
 export const POST = async (request) => {
-  const { userId, prompt, tag } = await request.json();
+  const { name, logo, address } = await request.json();
 
   try {
-    await connectToDB();
-    const newPrompt = new Prompt({ creator: userId, prompt, tag });
-
-    await newPrompt.save();
-    return new Response(JSON.stringify(newPrompt), { status: 201 });
+      await connectToDB();
+     
+    const newShop = new Shop({ name, logo, address });
+    console.log(newShop);
+      await newShop.save();
+   
+    return new Response(JSON.stringify(newShop), { status: 201 });
   } catch (error) {
-    return new Response("Failed to create a new prompt", { status: 500 });
+    return new Response("Failed to create a new shop", { status: 500 });
   }
 };

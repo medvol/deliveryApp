@@ -4,7 +4,7 @@ import { addressRegexp } from "@utils/regExp";
 const ShopSchema = new Schema({
   name: {
     type: String,
-    required: [true, "Shopname is required!"],
+    required: [true, "Shop name is required!"],
   },
 
   logo: {
@@ -18,7 +18,7 @@ const ShopSchema = new Schema({
   },
   address: {
     type: String,
-    match: addressRegexp,
+    // match: addressRegexp,
     required: [true, "Address is required"],
   },
   rating: {
