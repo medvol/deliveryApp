@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { signIn, getProviders } from "next-auth/react";
 
 const SignInButton = () => {
-  const [providers, setProviders] = useState(true);
+  const [providers, setProviders] = useState(null);
 
   useEffect(() => {
     (async () => {

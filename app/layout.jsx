@@ -6,6 +6,9 @@ import Provider from "@components/Provider";
 export const metadata = {
   title: "GoDeliver",
   description: "Order delicious food & Share AI Prompts",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 const RootLayout = ({ children }) => (
