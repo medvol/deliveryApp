@@ -62,7 +62,7 @@ function Cart() {
     const orders = JSON.parse(localStorage.getItem("orders"));
     if (orders.length < 1) return alert("Please choose some products");
     try {
-      const response = await fetch("/api/order", {
+      const response = await fetch("/api/orders", {
         method: "POST",
         body: JSON.stringify({
           items: orders,

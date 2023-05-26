@@ -64,13 +64,14 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <div className="hidden sm:flex">
+       
         {session?.user ? (
           <div className="flex-center gap-3 md:gap-9">
             <Link href="/shop" className="logo_text">
               Shop
             </Link>
-            <Link href="/order" className="logo_text">
-              Order
+            <Link href="/orders" className="logo_text">
+              Orders
             </Link>
             <Link href="/profile" className="logo_text">
               Profile
@@ -97,7 +98,12 @@ const Nav = () => {
             </Link>
           </div>
         ) : (
-          <SignInButton />
+          <div className="flex-center gap-3 md:gap-9">
+            <Link href="/shop" className="logo_text">
+              Shop
+            </Link>
+            <SignInButton />
+          </div>
         )}
       </div>
 
@@ -124,11 +130,11 @@ const Nav = () => {
                   Shop
                 </Link>
                 <Link
-                  href="/order"
+                  href="/orders"
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >
-                  Order
+                  Orders
                 </Link>
                 <Link
                   href="/profile"
