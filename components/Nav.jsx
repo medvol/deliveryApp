@@ -40,6 +40,9 @@ const Nav = () => {
             <Link href="/coupons" className="logo_text">
               Coupons
             </Link>
+            <Link href="/cart" className="black_btn">
+              Cart ({JSON.parse(localStorage.getItem("orders"))?.length ?? 0})
+            </Link>
 
             <button type="button" onClick={signOut} className="outline_btn">
               Sign Out
@@ -102,6 +105,10 @@ const Nav = () => {
                   onClick={() => setToggleDropdown(false)}
                 >
                   Coupons
+                </Link>
+                <Link href="/cart" className="black_btn">
+                  Cart (
+                  {JSON.parse(localStorage.getItem("orders"))?.length ?? 0})
                 </Link>
 
                 <button

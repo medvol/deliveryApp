@@ -2,6 +2,12 @@ import React from "react";
 import Image from "next/image";
 
 function FoodCard({ foods }) {
+  const handleClick = (order) => {
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    const updateOrders = [...orders, order]
+    console.log('in button', orders)
+    localStorage.setItem("orders", JSON.stringify(updateOrders));
+  }
   return (
     <ul className="grid  grid-cols-1 gap-4 px-2 md:grid-cols-3 md:px-8">
       {foods.map((food) => (
@@ -19,7 +25,9 @@ function FoodCard({ foods }) {
             <p>{food.price} hrn</p>
           </div>
           <div className="flex justify-end">
-            <button className="black_btn">Add to card</button>
+            <button className="black_btn" onClick={() => handleClick(food)}>
+              Add to card
+            </button>
           </div>
         </li>
       ))}

@@ -13,19 +13,19 @@ function ShopsList({ handleClick, shopId }) {
     };
     fetchShops();
   }, []);
+  
 
   return (
     <asside className="food_card basis-1/5 md:basis-1/4">
       <ul className="p-4">
         {shops.map((shop) => (
-          <li
-            key={shop._id}
-            className="shop_link cursor-pointer py-6"
-            onClick={() => handleClick(shop._id)}
-          >
+          <li key={shop._id} className="shop_link  cursor-pointer  py-4 ">
             <button
-              className=" mb-1 flex  cursor-pointer items-center gap-2"
-              disabled={null ? false : shop._id !== shopId}
+              className="flex  cursor-pointer items-center gap-2 disabled:opacity-60"
+              disabled={shopId === null ? false : shop._id !== shopId}
+              onClick={() => {
+                handleClick(shop._id);
+              }}
             >
               <Image
                 src={shop.logo}
