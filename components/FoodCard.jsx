@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function FoodCard({ foods }) {
   return (
-    <ul className="grid  grid-cols-1 gap-4 p-2 md:grid-cols-3 md:p-8">
+    <ul className="grid  grid-cols-1 gap-4 px-2 md:grid-cols-3 md:px-8">
       {foods.map((food) => (
         <li key={food._id} className="food_card">
           <Image
