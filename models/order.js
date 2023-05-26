@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const OrderSchema = new Schema(
   {
-    item: [
+    items: [
       {
         type: Schema.Types.ObjectId,
         ref: "food",
@@ -23,6 +23,6 @@ const OrderSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Order = models.Order || model("Food", OrderSchema);
+const Order = models.Order || model("Order", OrderSchema);
 
 export default Order;

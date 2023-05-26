@@ -1,12 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import CartItem from "@components/CartItem";
 import Link from "next/link";
 
 function Cart() {
-  const local = JSON.parse(localStorage.getItem("orders"));
-  const [orders, setOrders] = useState(local || []);
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const [orders, setOrders] = useState([]);
   const [quantity, setQuantity] = useState(null);
   const [total, setTotal] = useState(null);
 
@@ -16,6 +20,11 @@ function Cart() {
     }, 0);
     setTotal(updateTotal);
   }, [quantity, orders]);
+
+  useEffect(() => {
+    const storage = JSON.parse(localStorage.getItem("orders")) || [];
+    setOrders(storage);
+  }, []);
 
   const handleIncrement = (orderId) => {
     const updatedOrders = orders.map((order) => {
@@ -47,6 +56,28 @@ function Cart() {
     });
     setOrders(updatedOrders);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
+  };
+
+  const handleSubmitOrder = async () => {
+    const orders = JSON.parse(localStorage.getItem("orders"));
+    if (orders.length < 1) return alert("Please choose some products");
+    try {
+      const response = await fetch("/api/order", {
+        method: "POST",
+        body: JSON.stringify({
+          items: orders,
+          owner: session?.user.id,
+          totalAmount: Number(total),
+        }),
+      });
+
+      if (response.ok) {
+          router.push("/shop");
+          localStorage.removeItem("orders");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -89,7 +120,7 @@ function Cart() {
 
               <button
                 className="mb-3 flex w-full items-center justify-center gap-2 rounded-full bg-black py-4 text-lg font-medium text-white transition-transform hover:opacity-75 active:scale-95"
-                onClick={() => {}}
+                onClick={handleSubmitOrder}
               >
                 Buy
               </button>

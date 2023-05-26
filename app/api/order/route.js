@@ -7,7 +7,6 @@ export const POST = async (request) => {
   try {
     await connectToDB();
     const newOrder = new Order(order);
-
     await newOrder.save();
     return new Response(JSON.stringify(newOrder), { status: 201 });
   } catch (error) {
