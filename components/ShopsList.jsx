@@ -16,7 +16,7 @@ function ShopsList({ handleClick, shopId }) {
   
 
   return (
-    <asside className="food_card basis-1/5 md:basis-1/4">
+    <aside className="food_card basis-1/5 md:basis-1/4">
       <ul className="p-4">
         {shops.map((shop) => (
           <li key={shop._id} className="shop_link  cursor-pointer  py-4 ">
@@ -39,7 +39,7 @@ function ShopsList({ handleClick, shopId }) {
           </li>
         ))}
       </ul>
-    </asside>
+    </aside>
   );
 }
 

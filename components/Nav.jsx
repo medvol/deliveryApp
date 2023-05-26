@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,6 +10,44 @@ const Nav = () => {
   const { data: session } = useSession();
 
   const [toggleDropdown, setToggleDropdown] = useState(false);
+  // const [cartLength, setCartLength] = useState(0);
+  // const [storage, setStorage] = useState([]);
+
+
+  // useEffect(() => {
+  //   const handleStorageChange = (event) => {
+  //      console.log(event);
+  //     if (event.key === "orders") {
+  //       const storedValue = JSON.parse(localStorage.getItem("orders")) || [];
+  //       setCartLength(storedValue.length);
+       
+  //     }
+  //   };
+
+  //   window.addEventListener("storage", handleStorageChange);
+
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   setCartLength(storage.length);
+  // }, [storage]);
+
+  // useEffect(() => {
+  //   const handleStorageChange = () => {
+  //       const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  //       setCartLength(orders.length);
+  //     }
+  //     // const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  //     // setCartLength(orders.length);
+  //     window.addEventListener("storage", handleStorageChange);
+
+  //     return () => {
+  //       window.removeEventListener("storage", handleStorageChange);
+  //     };
+  //   }, []);
 
   return (
     <nav className="flex-between mb-16 w-full pt-3">
