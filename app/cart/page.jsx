@@ -5,10 +5,8 @@ import CartItem from "@components/CartItem";
 import Link from "next/link";
 
 function Cart() {
-    const local = JSON.parse(localStorage.getItem("orders"))
-  const [orders, setOrders] = useState(
-     local || []
-  );
+  const local = JSON.parse(localStorage.getItem("orders"));
+  const [orders, setOrders] = useState(local || []);
   const [quantity, setQuantity] = useState(null);
   const [total, setTotal] = useState(null);
 
@@ -39,18 +37,17 @@ function Cart() {
     });
     setOrders(updatedOrders);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
-    };
-    
-     const handleDelete = (orderId) => {
-       const updatedOrders = orders.map((order) => {
-         if (order._id === orderId && order.quantity > 0) {
-           return { ...order, quantity: order.quantity - 1 };
-         }
-         return order;
-       });
-       setOrders(updatedOrders);
-       localStorage.setItem("orders", JSON.stringify(updatedOrders));
-     };
+  };
+
+  const handleDelete = (orderId) => {
+    const updatedOrders = orders.filter((order) => {
+      if (order._id !== orderId) {
+        return order;
+      }
+    });
+    setOrders(updatedOrders);
+    localStorage.setItem("orders", JSON.stringify(updatedOrders));
+  };
 
   return (
     <section className="flex-center w-full flex-col">
@@ -67,6 +64,7 @@ function Cart() {
                     order={order}
                     handleDecrement={handleDecrement}
                     handleIncrement={handleIncrement}
+                    handleDelete={handleDelete}
                   />
                 ))}
               </ul>

@@ -31,6 +31,9 @@ const FoodSchema = new Schema(
       min: 1,
       required: [true, "Price is required"],
     },
+    quantity: {
+      type: Number,
+    },
     likes: {
       type: Number,
     },

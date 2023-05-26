@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React from "react";
 
-function CartItem({ order, handleIncrement, handleDecrement }) {
+function CartItem({ order, handleIncrement, handleDecrement, handleDelete }) {
   return (
     <li className=" flex h-fit w-full flex-1 break-inside-avoid flex-row items-center justify-between gap-2 rounded-lg border border-b border-gray-300  bg-white/20 bg-clip-padding p-2 pb-2 backdrop-blur-lg backdrop-filter md:gap-3">
       <div className="aspect-square w-[50px] shrink-0  md:w-[120px]">
@@ -38,7 +38,9 @@ function CartItem({ order, handleIncrement, handleDecrement }) {
           +
         </button>
       </div>
-      <button className="basis-1/6">Delete</button>
+      <button className="basis-1/6" onClick={() => handleDelete(order._id)}>
+        Delete
+      </button>
     </li>
   );
 }
