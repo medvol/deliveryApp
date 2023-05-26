@@ -22,8 +22,11 @@ function Cart() {
   }, [quantity, orders]);
 
   useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem("orders")) || [];
-    setOrders(storage);
+    const getOrders = () => {
+      const storage = JSON.parse(localStorage.getItem("orders")) || [];
+      setOrders(storage);
+    }
+    getOrders()
   }, []);
 
   const handleIncrement = (orderId) => {
