@@ -10,44 +10,6 @@ const Nav = () => {
   const { data: session } = useSession();
 
   const [toggleDropdown, setToggleDropdown] = useState(false);
-  // const [cartLength, setCartLength] = useState(0);
-  // const [storage, setStorage] = useState([]);
-
-
-  // useEffect(() => {
-  //   const handleStorageChange = (event) => {
-  //      console.log(event);
-  //     if (event.key === "orders") {
-  //       const storedValue = JSON.parse(localStorage.getItem("orders")) || [];
-  //       setCartLength(storedValue.length);
-       
-  //     }
-  //   };
-
-  //   window.addEventListener("storage", handleStorageChange);
-
-  //   return () => {
-  //     window.removeEventListener("storage", handleStorageChange);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   setCartLength(storage.length);
-  // }, [storage]);
-
-  // useEffect(() => {
-  //   const handleStorageChange = () => {
-  //       const orders = JSON.parse(localStorage.getItem("orders")) || [];
-  //       setCartLength(orders.length);
-  //     }
-  //     // const orders = JSON.parse(localStorage.getItem("orders")) || [];
-  //     // setCartLength(orders.length);
-  //     window.addEventListener("storage", handleStorageChange);
-
-  //     return () => {
-  //       window.removeEventListener("storage", handleStorageChange);
-  //     };
-  //   }, []);
 
   return (
     <nav className="flex-between mb-16 w-full pt-3">
@@ -64,7 +26,6 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <div className="hidden sm:flex">
-       
         {session?.user ? (
           <div className="flex-center gap-3 md:gap-9">
             <Link href="/shop" className="logo_text">
@@ -73,21 +34,19 @@ const Nav = () => {
             <Link href="/orders" className="logo_text">
               Orders
             </Link>
-            <Link href="/profile" className="logo_text">
-              Profile
-            </Link>
+
             <Link href="/coupons" className="logo_text">
               Coupons
             </Link>
             <Link href="/cart" className="black_btn">
-              Cart ({JSON.parse(localStorage.getItem("orders"))?.length ?? 0})
+              Cart
             </Link>
 
             <button type="button" onClick={signOut} className="outline_btn">
               Sign Out
             </button>
 
-            <Link href="/profile">
+            <Link href="/shops">
               <Image
                 src={session?.user.image}
                 width={37}
@@ -136,13 +95,7 @@ const Nav = () => {
                 >
                   Orders
                 </Link>
-                <Link
-                  href="/profile"
-                  className="dropdown_link"
-                  onClick={() => setToggleDropdown(false)}
-                >
-                  Profile
-                </Link>
+
                 <Link
                   href="/coupons"
                   className="dropdown_link"
@@ -151,8 +104,7 @@ const Nav = () => {
                   Coupons
                 </Link>
                 <Link href="/cart" className="black_btn">
-                  Cart (
-                  {JSON.parse(localStorage.getItem("orders"))?.length ?? 0})
+                  Cart
                 </Link>
 
                 <button
@@ -169,7 +121,16 @@ const Nav = () => {
             )}
           </div>
         ) : (
-          <SignInButton />
+          <div className="dropdown">
+            <Link
+              href="/shop"
+              className="dropdown_link"
+              onClick={() => setToggleDropdown(false)}
+            >
+              Shop
+            </Link>
+            <SignInButton />
+          </div>
         )}
       </div>
     </nav>
