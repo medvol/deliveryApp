@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { signIn, getProviders } from "next-auth/react";
 
-const SignInButton = () => {
+const SignInButton = ({ toggleDropdown, setToggleDropdown }) => {
   const [providers, setProviders] = useState(null);
 
   useEffect(() => {
@@ -22,6 +22,9 @@ const SignInButton = () => {
             key={provider.name}
             onClick={() => {
               signIn(provider.id);
+              if (toggleDropdown) {
+                setToggleDropdown(false)
+              }
             }}
             className="black_btn"
           >

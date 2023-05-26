@@ -46,7 +46,7 @@ const Nav = () => {
               Sign Out
             </button>
 
-            <Link href="/shops">
+            <Link href="/shop">
               <Image
                 src={session?.user.image}
                 width={37}
@@ -121,15 +121,31 @@ const Nav = () => {
             )}
           </div>
         ) : (
-          <div className="dropdown">
-            <Link
-              href="/shop"
-              className="dropdown_link"
-              onClick={() => setToggleDropdown(false)}
-            >
-              Shop
-            </Link>
-            <SignInButton />
+          <div className="flex">
+            <Image
+              src={"/assets/icons/menu.svg"}
+              width={37}
+              height={37}
+              className="rounded-full"
+              alt="menu"
+              onClick={() => setToggleDropdown(!toggleDropdown)}
+              />
+              {toggleDropdown && (
+                <div className="dropdown">
+                  <Link
+                    href="/shop"
+                    className="dropdown_link"
+                    onClick={() => setToggleDropdown(false)}
+                  >
+                    Shop
+                  </Link>
+                  <SignInButton
+                    toggleDropdown={toggleDropdown}
+                    setToggleDropdown={setToggleDropdown}
+                  />
+                </div>
+              )}
+            
           </div>
         )}
       </div>
