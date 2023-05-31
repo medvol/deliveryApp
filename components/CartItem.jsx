@@ -15,30 +15,33 @@ function CartItem({ order, handleIncrement, handleDecrement, handleDelete }) {
           className="h-30 w-30  rounded-xl object-cover"
         />
       </div>
-      <p className="basis-1/3 text-lg font-semibold text-black/[0.8] md:text-2xl">
+      <p className="basis-1/3 font-inter text-lg font-semibold text-black/[0.8] md:text-2xl">
         {order.name}
       </p>
-      <p className=" basis-1/6 text-base font-semibold text-black/[0.8] md:text-xl">
+      <p className=" basis-1/6 font-inter text-base font-semibold text-black/[0.8] md:text-xl">
         {order.price}
       </p>
       <div className="black_btn basis-1/6">
         <button
-          className="px-1 text-base font-semibold md:text-base "
+          className="px-1 font-inter text-base font-semibold md:text-base"
           onClick={() => handleDecrement(order._id)}
         >
           -
         </button>
-        <p className="px-3 text-base font-semibold md:text-base ">
+        <p className="px-3 font-inter text-base font-semibold md:text-base">
           {order.quantity}
         </p>
         <button
-          className="px-1 text-base font-semibold md:text-base "
+          className="px-1 font-inter text-base font-semibold md:text-base"
           onClick={() => handleIncrement(order._id)}
         >
           +
         </button>
       </div>
-      <button className="basis-1/6" onClick={() => handleDelete(order._id)}>
+      <button
+        className="basis-1/6 font-inter"
+        onClick={() => handleDelete(order._id)}
+      >
         Delete
       </button>
     </li>

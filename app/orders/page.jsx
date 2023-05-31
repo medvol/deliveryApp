@@ -18,7 +18,7 @@ const Orders = () => {
 
   return (
     <section className="flex w-full flex-col items-center gap-2 md:gap-8">
-      <h2 className="subtitle_text">Orders</h2>
+      <h2 className="subtitle_text blue_gradient font-satoshi">Orders</h2>
       <ul className="flex w-full flex-col  gap-2 md:gap-4">
         {orders.map((order) => (
           <li

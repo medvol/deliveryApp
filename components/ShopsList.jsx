@@ -36,7 +36,7 @@ function ShopsList({ handleClick, shopId }) {
                     height={30}
                     className="rounded"
                   />
-                  <p className="md:text-md text-center text-xs md:block hidden">
+                  <p className="md:text-md hidden text-center font-inter text-xs md:block">
                     {shop.name}
                   </p>
                 </button>

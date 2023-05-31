@@ -25,7 +25,7 @@ function FoodCard({ foods }) {
             height={250}
             className="mb-5 h-56 w-56 rounded-xl object-fill"
           />
-          <div className="mb-5 flex items-center justify-between px-2">
+          <div className="mb-5 flex items-center justify-between px-2 font-inter">
             {" "}
             <p>{food.name} </p>
             <p>{food.price} hrn</p>

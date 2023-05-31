@@ -87,7 +87,9 @@ function Cart() {
     <section className="flex-center w-full flex-col">
       {orders.length > 0 && (
         <>
-          <h2 className="subtitle_text">Shopping cart</h2>
+          <h2 className="subtitle_text blue_gradient font-satoshi">
+            Shopping cart
+          </h2>
           <div className="flex flex-col gap-12 py-10 lg:flex-row">
             <div className="flex-[2]">
               <h3 className="mb-3 text-lg font-bold">Cart Items</h3>

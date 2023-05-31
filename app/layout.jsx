@@ -2,6 +2,7 @@ import "@styles/globals.css";
 
 import Nav from "@components/Nav";
 import Provider from "@components/Provider";
+import ToasterContext from "@components/Toaster";
 
 export const metadata = {
   title: "GoDeliver",
@@ -20,6 +21,7 @@ const RootLayout = ({ children }) => (
         </div>
 
         <main className="app">
+          <ToasterContext/>
           <Nav />
           {children}
         </main>
