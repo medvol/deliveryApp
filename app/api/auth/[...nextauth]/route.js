@@ -23,6 +23,10 @@ const handler = NextAuth({
 
         const userExists = await User.findOne({ email: profile.email });
 
+        if (userExists) {
+          throw new Error("Email already in use", {status:409});
+        }
+
         if (!userExists) {
           await User.create({
             email: profile.email,
