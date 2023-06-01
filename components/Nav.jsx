@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import SignInButton from "./SignInButton";
 
 const Nav = () => {
   const { data: session } = useSession();
+  const router = useRouter();
 
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -46,7 +48,7 @@ const Nav = () => {
               Sign Out
             </button>
 
-            <Link href="/shop">
+            <Link href="/orders">
               <Image
                 src={session?.user.image}
                 width={37}
@@ -61,7 +63,15 @@ const Nav = () => {
             <Link href="/shop" className="logo_text">
               Shop
             </Link>
-            <SignInButton />
+            <button
+              type="button"
+              onClick={() => {
+                router.push("/login");
+              }}
+              className="black_btn"
+            >
+              Sign in
+            </button>
           </div>
         )}
       </div>
@@ -129,23 +139,28 @@ const Nav = () => {
               className="rounded-full"
               alt="menu"
               onClick={() => setToggleDropdown(!toggleDropdown)}
-              />
-              {toggleDropdown && (
-                <div className="dropdown">
-                  <Link
-                    href="/shop"
-                    className="dropdown_link"
-                    onClick={() => setToggleDropdown(false)}
-                  >
-                    Shop
-                  </Link>
-                  <SignInButton
-                    toggleDropdown={toggleDropdown}
-                    setToggleDropdown={setToggleDropdown}
-                  />
-                </div>
-              )}
-            
+            />
+            {toggleDropdown && (
+              <div className="dropdown">
+                <Link
+                  href="/shop"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  Shop
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    router.push("/login");
+                    setToggleDropdown(false);
+                  }}
+                  className="black_btn"
+                >
+                  Sign in
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
