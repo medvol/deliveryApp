@@ -1,12 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Formik, Field, ErrorMessage } from "formik";
 import { toast } from "react-hot-toast";
 import { registerSchema } from "@utils/registerSchema";
 import { loginSchema } from "@utils/loginSchema";
 import { registerUser } from "@utils/registerUser";
 import { loginUser } from "@utils/loginUser";
+import SignInGoogleButton from "./SignInGoogleButton";
 
 const initialValuesRegister = {
   username: "",
@@ -23,14 +25,14 @@ const Form = ({ type }) => {
   const router = useRouter();
 
   const handleSubmitForm = async (values, { setSubmitting, resetForm }) => {
-    let response
+    let response;
 
     try {
-      if (type === 'Register') {
+      if (type === "Register") {
         response = await registerUser(type, values);
-      };
-      if (type === 'Login') {
-        response = await loginUser(type, values);
+      }
+      if (type === "Login") {
+        await signIn("credentials", { ...values, redirect: true, callbackUrl: "/shop"  });
       }
       if (!response.ok) return toast.error("Something went wrong!");
 
@@ -177,9 +179,8 @@ const Form = ({ type }) => {
               <p className="my-3 block text-center font-inter text-sm font-medium leading-6 text-gray-900">
                 --- or ---
               </p>
-              <button className="black_btn w-full ">
-                Continue with Google
-              </button>
+
+              <SignInGoogleButton />
             </div>
           </form>
         )}
@@ -189,4 +190,3 @@ const Form = ({ type }) => {
 };
 
 export default Form;
-

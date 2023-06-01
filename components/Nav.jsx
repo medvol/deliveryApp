@@ -5,7 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import SignInButton from "./SignInButton";
+import SignInButton from "./SignInGoogleButton";
 
 const Nav = () => {
   const { data: session } = useSession();

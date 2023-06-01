@@ -26,7 +26,7 @@ const UserSchema = new Schema(
     },
     phone: {
       type: String,
-      match: phoneRegexp,
+      default: "",
       required: true,
     },
     address: {

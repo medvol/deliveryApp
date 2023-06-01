@@ -1,12 +1,7 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Form from "@components/Form";
 
 const LoginPage = () => {
-  const router = useRouter();
-
   return (
     <section>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
