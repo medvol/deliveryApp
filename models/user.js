@@ -16,8 +16,8 @@ const UserSchema = new Schema(
       maxlength: 50,
       required: [true, "Username is required!"],
       match: [
-        /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
-        "Username invalid, it should contain 8-20 alphanumeric letters and be unique!",
+        /^(?=.{2,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
+        "Username invalid, it should contain 2-20 alphanumeric letters and be unique!",
       ],
     },
     password: {
@@ -32,7 +32,7 @@ const UserSchema = new Schema(
     address: {
       type: String,
       match: addressRegexp,
-      required: [true, "Address is required"],
+      default: "",
     },
     token: {
       type: String,
@@ -40,6 +40,8 @@ const UserSchema = new Schema(
     },
     image: {
       type: String,
+      default:
+        "https://res.cloudinary.com/dxrvhhpki/image/upload/v1685033891/deliveryapp/shops/the-flavor-factory-low-resolution-color-logo_enh3zr.png",
     },
   },
   { versionKey: false, timestamps: true }

@@ -1,87 +1,192 @@
-'use client'
+"use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Formik, Field, ErrorMessage } from "formik";
+import { toast } from "react-hot-toast";
+import { registerSchema } from "@utils/registerSchema";
+import { loginSchema } from "@utils/loginSchema";
+import { registerUser } from "@utils/registerUser";
+import { loginUser } from "@utils/loginUser";
 
-const Form = () => {
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(e.target.name.value)
-          
+const initialValuesRegister = {
+  username: "",
+  email: "",
+  password: "",
+  phone: "",
+};
+const initialValuesLogin = {
+  email: "",
+  password: "",
+};
 
-        try {
-            const response = await fetch("/api/database", {
-                method: "POST",
-                body: JSON.stringify({
-                    name: e.target.name.value,
-                    logo: e.target.logo.value,
-                    address: e.target.address.value,
-                }),
-            });
+const Form = ({ type }) => {
+  const router = useRouter();
 
-        } catch (error) {
-            console.log(error);
-        }
+  const handleSubmitForm = async (values, { setSubmitting, resetForm }) => {
+    let response
+
+    try {
+      if (type === 'Register') {
+        response = await registerUser(type, values);
+      };
+      if (type === 'Login') {
+        response = await loginUser(type, values);
+      }
+      if (!response.ok) return toast.error("Something went wrong!");
+
+      toast.success("User has been registered!");
+      router.push("/shop");
+      resetForm();
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setSubmitting(false);
     }
-    
+  };
+
   return (
-    <section className="flex-start w-full max-w-full flex-col">
-      <h1 className="head_text text-left">
-        <span className="blue_gradient"> Shop</span>
-      </h1>
-
-      <form
-        onSubmit={handleSubmit}
-        className="glassmorphism mt-10 flex w-full max-w-2xl flex-col gap-7"
+    <>
+      <Formik
+        onSubmit={handleSubmitForm}
+        initialValues={
+          type === "Register" ? initialValuesRegister : initialValuesLogin
+        }
+        validationSchema={type === "Register" ? registerSchema : loginSchema}
       >
-        <label>
-          <span className="font-satoshi text-base font-semibold text-gray-700">
-            Your AI Prompt
-          </span>
-        </label>
+        {({ values, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {type === "Register" && (
+              <div>
+                <label
+                  htmlFor="username"
+                  className="block font-inter text-sm font-medium leading-6 text-gray-900"
+                >
+                  Name
+                </label>
+                <div className="mt-2">
+                  <Field
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="Please type your name..."
+                    required
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.username}
+                    className="form_input"
+                  />
+                  <ErrorMessage
+                    name="username"
+                    component="div"
+                    className="md:text-md mt-1 font-inter text-xs text-red-500"
+                  />
+                </div>
+              </div>
+            )}
+            <div>
+              <label
+                htmlFor="email"
+                className="block font-inter text-sm font-medium leading-6 text-gray-900"
+              >
+                Email
+              </label>
+              <div className="mt-2">
+                <Field
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Please type your email..."
+                  required
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.email}
+                  className="form_input"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="md:text-md mt-1 font-inter text-xs text-red-500"
+                />
+              </div>
+            </div>
+            {type === "Register" && (
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block font-inter text-sm font-medium leading-6 text-gray-900"
+                >
+                  Phone
+                </label>
+                <div className="mt-2">
+                  <Field
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    required
+                    placeholder="+380"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.phone}
+                    className="form_input"
+                  />
+                  <ErrorMessage
+                    name="phone"
+                    component="div"
+                    className="md:text-md mt-1 font-inter text-xs text-red-500"
+                  />
+                </div>
+              </div>
+            )}
 
-        <label>
-          <input
-                      type="text"
-                      name='name'
-            placeholder="name"
-            required
-            className="form_input"
-          />
-        </label>
-        <label>
-          <input
-                      type="text"
-                      name='logo'
-            placeholder="logo"
-            required
-            className="form_input"
-          />
-        </label>
-        <label>
-          <input
-                      type="text"
-                      name='address'
-            placeholder="address"
-            required
-            className="form_input"
-          />
-        </label>
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block font-inter text-sm font-medium leading-6 text-gray-900"
+                >
+                  Password
+                </label>
+              </div>
+              <div className="mt-2">
+                <Field
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.password}
+                  className="form_input"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="md:text-md mt-1 font-inter text-xs text-red-500"
+                />
+              </div>
+            </div>
 
-        <div className="flex-end mx-3 mb-5 gap-4">
-          <Link href="/" className="text-sm text-gray-500">
-            Cancel
-          </Link>
-
-          <button
-            type="submit"
-            className="rounded-full bg-primary-orange px-5 py-1.5 text-sm text-white"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-    </section>
+            <div>
+              <button
+                type="submit"
+                className="black_btn w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? `Submitting...` : type}
+              </button>
+              <p className="my-3 block text-center font-inter text-sm font-medium leading-6 text-gray-900">
+                --- or ---
+              </p>
+              <button className="black_btn w-full ">
+                Continue with Google
+              </button>
+            </div>
+          </form>
+        )}
+      </Formik>
+    </>
   );
 };
 
 export default Form;
+

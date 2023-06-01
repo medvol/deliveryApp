@@ -3,12 +3,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Form from "@components/Form";
+import RegisterForm from "@components/RegisterForm";
 import { toast } from "react-hot-toast";
 
 const initUser = {
   name: "",
   email: "",
   password: "",
+  phone: "",
 };
 
 const RegisterPage = () => {
@@ -16,18 +19,18 @@ const RegisterPage = () => {
 
   const router = useRouter();
 
-  const registerUser = async (e) => {
-    e.preventDefault();
+  const registerUser = async (values, { resetForm }) => {
+    console.log(values);
     const response = await fetch("/api/register", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(values),
     });
-
+    console.log("response", response);
     if (!response.ok) return toast.error("Something went wrong!");
 
     toast.success("User has been registered!");
-
     router.push("/shop");
+    resetForm();
   };
 
   return (
@@ -40,88 +43,7 @@ const RegisterPage = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={registerUser}>
-            <div>
-              <label
-                htmlFor="name"
-                className="block font-inter text-sm font-medium leading-6 text-gray-900"
-              >
-                Name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  value={data.name}
-                  onChange={(e) => setData({ ...data, name: e.target.value })}
-                  className="form_input"
-                />
-              </div>
-            </div>
-            <div>
-              <label
-                htmlFor="email"
-                className="block font-inter text-sm font-medium leading-6 text-gray-900"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={data.email}
-                  onChange={(e) => setData({ ...data, email: e.target.value })}
-                  className="form_input"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block font-inter text-sm font-medium leading-6 text-gray-900"
-                >
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  value={data.password}
-                  onChange={(e) =>
-                    setData({ ...data, password: e.target.value })
-                  }
-                  className="form_input"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="black_btn w-full "
-                onClick={registerUser}
-              >
-                Register
-              </button>
-              <p className="my-3 block text-center font-inter text-sm font-medium leading-6 text-gray-900">
-                --- or ---
-              </p>
-              <button type="submit" className="black_btn w-full ">
-                Continue with Google
-              </button>
-            </div>
-          </form>
+          <Form type="Register" />
 
           <p className="mt-10 text-center font-inter text-sm text-gray-500">
             Already have an account?{" "}

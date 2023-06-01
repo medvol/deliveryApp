@@ -3,9 +3,10 @@ import { connectToDB } from "@utils/database";
 import User from "@models/user";
 
 export async function POST(request) {
-  const { name, email, password } = await request.json();
+    const { username, email, password, phone } = await request.json();
+    console.log(username, email, password, phone)
 
-  if (!name || !email || !password) {
+  if (!username || !email || !password || !phone) {
     return new Response("Missing Fields", { status: 400 });
   }
 
@@ -21,9 +22,10 @@ export async function POST(request) {
   const passwordHash = await bcrypt.hash(password, salt);
 
   const newUser = new User({
-    username: name,
+    username,
     email,
     password: passwordHash,
+    phone
   });
 
   const savedUser = await newUser.save();
