@@ -8,10 +8,11 @@ export const GET = async (request, { params }) => {
    const orders = await Order.find({ owner: params.id })
      .populate({
        path: "items",
-       model: "Food",
        select: "name",
      })
      .sort({ createdAt: -1 });
+    
+    console.log(orders)
 
   
     return new Response(JSON.stringify(orders), { status: 200 });
