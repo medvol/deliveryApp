@@ -11,7 +11,7 @@ const FoodSchema = new Schema(
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "shop",
+      ref: "Shop",
       required: true,
     },
 

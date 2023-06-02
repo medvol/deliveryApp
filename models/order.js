@@ -5,13 +5,13 @@ const OrderSchema = new Schema(
     items: [
       {
         type: Schema.Types.ObjectId,
-        ref: "food",
+        ref: "Food",
         required: true,
       },
     ],
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "user",
+      ref: "User",
       required: true,
     },
 
