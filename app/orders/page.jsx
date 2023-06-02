@@ -7,15 +7,14 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    if (!session) return;
+  
     const fetchOrders = async () => {
       const response = await fetch(`/api/orders/${session?.user.id}`);
       const orders = await response.json();
       setOrders(orders);
     };
-
-    fetchOrders();
-  }, [session?.user.id]);
+    if (session?.user.id) fetchOrders();
+  }, [session.user.id]);
 
   return (
     <section className="flex w-full flex-col items-center gap-2 md:gap-8">
