@@ -14,7 +14,7 @@ const Orders = () => {
       setOrders(orders);
     };
     if (session?.user.id) fetchOrders();
-  }, [session.user.id]);
+  }, [session?.user.id]);
 
   return (
     <section className="flex w-full flex-col items-center gap-2 md:gap-8">
