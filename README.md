@@ -12,7 +12,7 @@ DeliveryApp is a web application that allows users to order food from various re
  - User Accounts: Users can create accounts, save their delivery addresses, and manage their preferences. They can also view their order history and easily reorder previous meals.
 
 ## Live demo
-Check the live demo here 👉️ https://deliveryapp-swart.vercel.app/
+Check the live demo here 👉️ (https://deliveryapp-dpy1f2hqx-medvol.vercel.app/)
 
 ## Technologies Used
 - NextJs 13.4
