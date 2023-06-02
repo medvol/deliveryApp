@@ -28,11 +28,11 @@ const Orders = () => {
             <p className="md:text-md basis-1/3  text-center font-inter text-sm">
               {order._id}
             </p>
-            <ul className="flex w-full basis-1/2 items-center justify-between gap-1 font-inter">
+            <ul className="flex w-full basis-1/2 items-center justify-start  font-inter">
               {order.items.map((item) => (
                 <li key={item._id}>
-                  <p className="md:text-md  basis-1/3  font-inter text-sm">
-                    {item.name},
+                  <p className="md:text-md  basis-1/3  font-inter text-sm border-r-4 px-2">
+                    {item.name}
                   </p>
                 </li>
               ))}
