@@ -7,29 +7,34 @@ import { toast } from "react-hot-toast";
 import CartItem from "@components/CartItem";
 import Link from "next/link";
 
-
-
 function Cart() {
   const router = useRouter();
   const { data: session } = useSession();
-console.log(session);
+
   const [orders, setOrders] = useState([]);
   const [quantity, setQuantity] = useState(null);
   const [total, setTotal] = useState(null);
+  const [discount, setDiscount] = useState(null);
 
   useEffect(() => {
     const updateTotal = orders.reduce((acc, order) => {
-      return (acc += order.price * order.quantity);
+      return (acc +=
+        (order.price * order.quantity * (100 - discount?.discount ||  0)) / 100);
     }, 0);
     setTotal(updateTotal);
-  }, [quantity, orders]);
+  }, [quantity, orders, discount?.discount]);
 
   useEffect(() => {
     const getOrders = () => {
       const storage = JSON.parse(localStorage.getItem("orders")) || [];
       setOrders(storage);
-    }
-    getOrders()
+    };
+    const getDiscount = () => {
+      const storage = JSON.parse(localStorage.getItem("discount")) || null;
+      setDiscount(storage);
+    };
+    getOrders();
+    getDiscount();
   }, []);
 
   const handleIncrement = (orderId) => {
@@ -65,9 +70,8 @@ console.log(session);
   };
 
   const handleSubmitOrder = async () => {
-
     if (!session) return toast.error("Please signin for order");
-    
+
     const orders = JSON.parse(localStorage.getItem("orders"));
     if (orders.length < 1) return alert("Please choose some products");
     try {
@@ -81,12 +85,23 @@ console.log(session);
       });
 
       if (response.ok) {
-          router.push("/shop");
-          localStorage.removeItem("orders");
+        router.push("/shop");
+        localStorage.removeItem("orders");
+        localStorage.removeItem("discount");
+        setDiscount(null);
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleChangeCoupon = (e) => {
+    const discount = parseInt(JSON.parse(localStorage.getItem("discount")));
+    const coupon = {
+      value: discount,
+      code: e,
+    };
+    setDiscount(coupon);
   };
 
   return (
@@ -114,7 +129,7 @@ console.log(session);
             <div className="flex-[1]">
               <h3 className="mb-3 text-lg font-bold">Summary</h3>
               <div className="mb-5 rounded-xl bg-black/[0.2] p-5">
-                <div className="flex justify-between">
+                <div className="mb-3 flex justify-between">
                   <p className="text-md font-inter font-medium uppercase text-black md:text-lg">
                     Subtotal
                   </p>
@@ -122,6 +137,23 @@ console.log(session);
                     {total} hrn
                   </p>
                 </div>
+                <label
+                  htmlFor="discount"
+                  className="block font-inter text-sm font-medium leading-6 text-gray-900"
+                >
+                  Coupon
+                </label>
+
+                <input
+                  id="discount"
+                  name="discount"
+                  type="text"
+                  placeholder="Please enter coupon here"
+                  onChange={(e) => handleChangeCoupon(e.target.value)}
+                  value={discount?.code}
+                  className="form_input"
+                />
+
                 <p className="md:text-md mt-5 border-t py-5 font-inter text-sm">
                   The subtotal reflects the total price of your order, including
                   duties and taxes, before any applicable discounts. It does not
@@ -130,7 +162,7 @@ console.log(session);
               </div>
 
               <button
-                className="font-inter items-center mb-3 flex w-full justify-center gap-2 rounded-full bg-black py-4 text-lg font-medium text-white transition-transform hover:opacity-75 active:scale-95"
+                className="mb-3 flex w-full items-center justify-center gap-2 rounded-full bg-black py-4 font-inter text-lg font-medium text-white transition-transform hover:opacity-75 active:scale-95"
                 onClick={handleSubmitOrder}
               >
                 Buy

@@ -18,8 +18,10 @@ const Coupons = () => {
   }, []);
 
   const handleCopy = (value) => {
-    setCopied(value);
-    navigator.clipboard.writeText(value);
+    setCopied(value.code);
+    navigator.clipboard.writeText(value.code);
+
+    localStorage.setItem("discount", JSON.stringify(value));
     setTimeout(() => setCopied(false), 5000);
   };
   return (
@@ -28,12 +30,12 @@ const Coupons = () => {
       <ul className="flex flex-row gap-4 ">
         {coupons.map((coupon) => (
           <li key={coupon.id} className="food_card p-2">
-            <p className="font-satoshi font-semibold text-gray-900 py-5 px-2">
+            <p className="px-2 py-5 font-satoshi font-semibold text-gray-900">
               {coupon.description}
             </p>
-            <div className="flex flex-row gap-4 p-2 items-center justify-between">
+            <div className="flex flex-row items-center justify-between gap-4 p-2">
               <p className="font-inter text-sm text-gray-500">{coupon.code}</p>
-              <div className="copy_btn" onClick={() => handleCopy(coupon.code)}>
+              <div className="copy_btn" onClick={() => handleCopy(coupon)}>
                 <Image
                   src={
                     copied === coupon.code
