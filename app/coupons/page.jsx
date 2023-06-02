@@ -29,7 +29,7 @@ const Coupons = () => {
       <h2 className="subtitle_text blue_gradient font-satoshi">Coupons</h2>
       <ul className="flex flex-row gap-4 ">
         {coupons.map((coupon) => (
-          <li key={coupon.id} className="food_card p-2">
+          <li key={coupon._id} className="food_card p-2">
             <p className="px-2 py-5 font-satoshi font-semibold text-gray-900">
               {coupon.description}
             </p>

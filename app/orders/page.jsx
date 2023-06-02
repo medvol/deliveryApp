@@ -7,6 +7,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
+    if (!session) return;
     const fetchOrders = async () => {
       const response = await fetch(`/api/orders/${session?.user.id}`);
       const orders = await response.json();
