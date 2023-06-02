@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 import { registerSchema } from "@utils/registerSchema";
 import { loginSchema } from "@utils/loginSchema";
 import { registerUser } from "@utils/registerUser";
-import { loginUser } from "@utils/loginUser";
 import SignInGoogleButton from "./SignInGoogleButton";
 
 const initialValuesRegister = {

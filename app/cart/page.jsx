@@ -3,13 +3,16 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 import CartItem from "@components/CartItem";
 import Link from "next/link";
+
+
 
 function Cart() {
   const router = useRouter();
   const { data: session } = useSession();
-
+console.log(session);
   const [orders, setOrders] = useState([]);
   const [quantity, setQuantity] = useState(null);
   const [total, setTotal] = useState(null);
@@ -62,6 +65,9 @@ function Cart() {
   };
 
   const handleSubmitOrder = async () => {
+
+    if (!session) return toast.error("Please signin for order");
+    
     const orders = JSON.parse(localStorage.getItem("orders"));
     if (orders.length < 1) return alert("Please choose some products");
     try {
@@ -92,7 +98,7 @@ function Cart() {
           </h2>
           <div className="flex flex-col gap-12 py-10 lg:flex-row">
             <div className="flex-[2]">
-              <h3 className="mb-3 text-lg font-bold">Cart Items</h3>
+              <h3 className="mb-3 font-inter text-lg font-bold">Cart Items</h3>
               <ul className="flex flex-col gap-2  md:gap-4">
                 {orders.map((order) => (
                   <CartItem
@@ -109,14 +115,14 @@ function Cart() {
               <h3 className="mb-3 text-lg font-bold">Summary</h3>
               <div className="mb-5 rounded-xl bg-black/[0.2] p-5">
                 <div className="flex justify-between">
-                  <p className="text-md font-medium uppercase text-black md:text-lg">
+                  <p className="text-md font-inter font-medium uppercase text-black md:text-lg">
                     Subtotal
                   </p>
-                  <p className="text-md font-medium text-black md:text-lg">
+                  <p className="text-md font-inter font-medium text-black md:text-lg">
                     {total} hrn
                   </p>
                 </div>
-                <p className="md:text-md mt-5 border-t py-5 text-sm">
+                <p className="md:text-md mt-5 border-t py-5 font-inter text-sm">
                   The subtotal reflects the total price of your order, including
                   duties and taxes, before any applicable discounts. It does not
                   include delivery costs and international transaction fees.
@@ -124,7 +130,7 @@ function Cart() {
               </div>
 
               <button
-                className="mb-3 flex w-full items-center justify-center gap-2 rounded-full bg-black py-4 text-lg font-medium text-white transition-transform hover:opacity-75 active:scale-95"
+                className="font-inter items-center mb-3 flex w-full justify-center gap-2 rounded-full bg-black py-4 text-lg font-medium text-white transition-transform hover:opacity-75 active:scale-95"
                 onClick={handleSubmitOrder}
               >
                 Buy

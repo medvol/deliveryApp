@@ -63,6 +63,9 @@ const Nav = () => {
             <Link href="/shop" className="logo_text">
               Shop
             </Link>
+            <Link href="/cart" className="black_btn">
+              Cart
+            </Link>
             <button
               type="button"
               onClick={() => {
@@ -148,6 +151,9 @@ const Nav = () => {
                   onClick={() => setToggleDropdown(false)}
                 >
                   Shop
+                </Link>
+                <Link href="/cart" className="black_btn">
+                  Cart
                 </Link>
                 <button
                   type="button"
